@@ -1,3 +1,5 @@
+" ======== WINDOWS GVIM CONFIG BEGIN ========
+
 filetype off
 set shellslash
 set rtp+=~/vimfiles/bundle/Vundle.vim
@@ -45,6 +47,9 @@ set laststatus=2
 set noshowmode
 set wildmenu
 set backspace=indent,eol,start
+set nobackup
+set nowb
+set noswapfile
 syntax on
 
 " Disable annoying bells
@@ -64,3 +69,5 @@ let mapleader = " "
 " nnoremap <leader>vrc :tabe ((PATH TO VIMRC))<CR> 
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <leader>src :so %<CR>
+
+" ======== WINDOWS GVIM CONFIG END ========
