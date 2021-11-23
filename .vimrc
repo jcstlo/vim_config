@@ -1,4 +1,6 @@
 " ======== WINDOWS GVIM CONFIG BEGIN ========
+" NOTE: .vimrc file should be located at $HOME/_vimrc on windows
+" Use ':echo $HOME' command in gVim to get full path
 
 filetype off
 set shellslash
@@ -66,7 +68,7 @@ endif
 let mapleader = " "
 
 " Macros
-" nnoremap <leader>vrc :tabe ((PATH TO VIMRC))<CR> 
+nnoremap <leader>vrc :tabe $HOME/_vimrc<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <leader>src :so %<CR>
 
