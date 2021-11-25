@@ -1,4 +1,5 @@
 " ======== WINDOWS GVIM CONFIG BEGIN ========
+
 " NOTE: .vimrc file should be located at $HOME/_vimrc on windows
 " Use ':echo $HOME' command in gVim to get full path
 
@@ -32,6 +33,7 @@ filetype plugin indent on    " required
 let g:gruvbox_contrast_dark='hard'
 autocmd vimenter * ++nested colorscheme gruvbox
 
+" ======== Sets ========
 set number
 set relativenumber
 set nowrap
@@ -60,16 +62,38 @@ autocmd GUIEnter * set visualbell t_vb=
 
 if has ("gui_running")
     if has("gui_win32")
+        set guifont=JetBrains_Mono:h11:W500:cANSI:qDRAFT
         " set guifont=Fira_Mono_Medium:h10:W500:cANSI:qDRAFT
-        set guifont=JetBrains_Mono:h8:W500:cANSI:qDRAFT
     endif
 endif
 
 let mapleader = " "
 
-" Macros
-nnoremap <leader>vrc :tabe $HOME/_vimrc<CR>
+" ======== Maps ========
+" vimrc
+nnoremap <leader>vrc :tabe $HOME/_vimrc<CR> 
+nnoremap <leader>src :w<CR>:so %<CR>
+
+" Plugin-specific
 nnoremap <C-e> :NERDTreeToggle<CR>
-nnoremap <leader>src :so %<CR>
+
+" Directory-related
+nnoremap <leader>cms :cd $HOME/Desktop/Main_Sync/<CR>
+nnoremap <leader>cdt :cd $HOME/Desktop/<CR>
+nnoremap <leader>ch :cd $HOME<CR>
+
+" Buffer-related
+nnoremap <leader>lb :buffers<CR>
+nnoremap <leader>sb <C-^>
+
+" Splits
+nnoremap <leader>wl <C-w>v<C-w>l
+nnoremap <leader>wj <C-w>s<C-w>j
+
+" Other
+nnoremap <leader>td o- [ ] 
+
+" Place cursor where font size is in _vimrc
+nmap <leader>fs <leader>vrc0gg/guifont<CR>0f:ll
 
 " ======== WINDOWS GVIM CONFIG END ========
