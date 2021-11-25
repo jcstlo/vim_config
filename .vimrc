@@ -83,8 +83,8 @@ nnoremap <leader>cdt :cd $HOME/Desktop/<CR>
 nnoremap <leader>ch :cd $HOME<CR>
 
 " Buffer-related
-nnoremap <leader>lb :buffers<CR>
-nnoremap <leader>sb <C-^>
+nnoremap <leader>bl :buffers<CR>
+nnoremap <leader>bs <C-^>
 
 " Splits
 nnoremap <leader>wl <C-w>v<C-w>l
