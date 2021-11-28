@@ -54,6 +54,7 @@ set backspace=indent,eol,start
 set nobackup
 set nowb
 set noswapfile
+set colorcolumn=80
 syntax on
 
 " Disable annoying bells
@@ -62,7 +63,7 @@ autocmd GUIEnter * set visualbell t_vb=
 
 if has ("gui_running")
     if has("gui_win32")
-        set guifont=JetBrains_Mono:h11:W500:cANSI:qDRAFT
+        set guifont=JetBrains_Mono:h12:W500:cANSI:qDRAFT
         " set guifont=Fira_Mono_Medium:h10:W500:cANSI:qDRAFT
     endif
 endif
@@ -71,7 +72,7 @@ let mapleader = " "
 
 " ======== Maps ========
 " vimrc
-nnoremap <leader>vrc :tabe $HOME/_vimrc<CR> 
+nnoremap <leader>vrc :tabe $HOME/_vimrc<CR>
 nnoremap <leader>src :w<CR>:so %<CR>
 
 " Plugin-specific
@@ -90,10 +91,29 @@ nnoremap <leader>bs <C-^>
 nnoremap <leader>wl <C-w>v<C-w>l
 nnoremap <leader>wj <C-w>s<C-w>j
 
+nnoremap <leader>w, :vertical resize -5<CR>
+nnoremap <leader>w< :vertical resize -20<CR>
+
+nnoremap <leader>w. :vertical resize +5<CR>
+nnoremap <leader>w> :vertical resize +20<CR>
+
+nnoremap <leader>w= :resize +5<CR>
+nnoremap <leader>w- :resize -5<CR>
+
 " Other
 nnoremap <leader>td o- [ ] 
+nnoremap <leader>ya ggVG"+y
 
 " Place cursor where font size is in _vimrc
 nmap <leader>fs <leader>vrc0gg/guifont<CR>0f:ll
+
+" Automatic font size changes
+nmap <leader>8fs <leader>fscw8<Esc><leader>src:q<CR>
+nmap <leader>9fs <leader>fscw9<Esc><leader>src:q<CR>
+nmap <leader>10fs <leader>fscw10<Esc><leader>src:q<CR>
+nmap <leader>11fs <leader>fscw11<Esc><leader>src:q<CR>
+nmap <leader>12fs <leader>fscw12<Esc><leader>src:q<CR>
+nmap <leader>13fs <leader>fscw13<Esc><leader>src:q<CR>
+nmap <leader>14fs <leader>fscw14<Esc><leader>src:q<CR>
 
 " ======== WINDOWS GVIM CONFIG END ========
