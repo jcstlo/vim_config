@@ -63,7 +63,7 @@ autocmd GUIEnter * set visualbell t_vb=
 
 if has ("gui_running")
     if has("gui_win32")
-        set guifont=JetBrains_Mono:h12:W500:cANSI:qDRAFT
+        set guifont=JetBrains_Mono:h10:W500:cANSI:qDRAFT
         " set guifont=Fira_Mono_Medium:h10:W500:cANSI:qDRAFT
     endif
 endif
@@ -79,7 +79,6 @@ nnoremap <leader>src :w<CR>:so %<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
 
 " Directory-related
-nnoremap <leader>cms :cd $HOME/Desktop/Main_Sync/<CR>
 nnoremap <leader>cdt :cd $HOME/Desktop/<CR>
 nnoremap <leader>ch :cd $HOME<CR>
 
@@ -102,6 +101,7 @@ nnoremap <leader>w- :resize -5<CR>
 
 " Other
 nnoremap <leader>td o- [ ] 
+nnoremap <leader>cap :e $HOME/capture.txt<CR>
 nnoremap <leader>ya ggVG"+y
 
 " Place cursor where font size is in _vimrc
