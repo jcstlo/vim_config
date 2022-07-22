@@ -11,6 +11,7 @@ call vundle#begin('~/vimfiles/bundle')
 Plugin 'VundleVim/Vundle.vim'
 
 " All of your Plugins must be added before the following line
+Plugin 'rakr/vim-one'
 Plugin 'morhetz/gruvbox'
 Plugin 'itchyny/lightline.vim'
 Plugin 'preservim/nerdtree'
@@ -30,14 +31,21 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-let g:gruvbox_contrast_dark='hard'
-autocmd vimenter * ++nested colorscheme gruvbox
+" ======== Themes ========
+" [GRUVBOX]
+" let g:gruvbox_contrast_dark='hard'
+" autocmd vimenter * ++nested colorscheme gruvbox
+" set background=dark
+
+" [ONE]
+autocmd vimenter * ++nested colorscheme one
+" set background=light
+set background=dark
 
 " ======== Sets ========
 set number
 set relativenumber
 set nowrap
-set background=dark
 set nohlsearch
 set hidden
 set tabstop=4 softtabstop=4
@@ -54,7 +62,7 @@ set backspace=indent,eol,start
 set nobackup
 set nowb
 set noswapfile
-set colorcolumn=80
+" set colorcolumn=80
 syntax on
 
 " Disable annoying bells
@@ -63,8 +71,9 @@ autocmd GUIEnter * set visualbell t_vb=
 
 if has ("gui_running")
     if has("gui_win32")
-        set guifont=JetBrains_Mono:h10:W500:cANSI:qDRAFT
-        " set guifont=Fira_Mono_Medium:h10:W500:cANSI:qDRAFT
+        set guifont=Cascadia_Code_SemiLight:h13:W500:cANSI:qDRAFT
+        " set guifont=Fira_Code_Medium:h11:W500:cANSI:qDRAFT
+        " set guifont=JetBrains_Mono:h14:W500:cANSI:qDRAFT
     endif
 endif
 
