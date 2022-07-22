@@ -90,14 +90,14 @@ nnoremap <leader>bs <C-^>
 nnoremap <leader>wl <C-w>v<C-w>l
 nnoremap <leader>wj <C-w>s<C-w>j
 
-nnoremap <leader>w, :vertical resize -5<CR>
-nnoremap <leader>w< :vertical resize -20<CR>
+noremap <silent> <C-Right> :vertical resize -5<CR>
+noremap <leader>w< :vertical resize -20<CR>
 
-nnoremap <leader>w. :vertical resize +5<CR>
+nnoremap <silent> <C-Left> :vertical resize +5<CR>
 nnoremap <leader>w> :vertical resize +20<CR>
 
-nnoremap <leader>w= :resize +5<CR>
-nnoremap <leader>w- :resize -5<CR>
+nnoremap <silent> <C-Up> :resize +5<CR>
+nnoremap <silent> <C-Down> :resize -5<CR>
 
 " Other
 nnoremap <leader>td o- [ ] 
