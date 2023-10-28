@@ -19,7 +19,7 @@ set nowb
 set noswapfile
 
 " WSL SPECIFIC SET
-set clipboard=unnamedplus 
+set clipboard=unnamedplus
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -94,6 +94,6 @@ nnoremap <silent> <C-Up> :resize +5<CR>
 nnoremap <silent> <C-Down> :resize -5<CR>
 
 " Other
-nnoremap <leader>td o- [ ] 
+nnoremap <leader>td o- [ ]
 nnoremap <leader>cap :e $HOME/capture.txt<CR>
 nnoremap <leader>ya ggVG"+y
