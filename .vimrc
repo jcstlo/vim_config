@@ -1,3 +1,23 @@
+" --------------------------------------------------------------------------
+" jcstlo's basic vim config
+" --------------------------------------------------------------------------
+"
+"   Focuses on using built-in Vim features, and only pulling in stable
+" plugins that are either essential to my workflow or visual QoL
+" improvements.
+"
+"   Why? I want to have a stable, easy-to-install config to fall back on,
+" as I work my way around learning Neovim configuration in Lua (probably
+" breaking things along the way)
+"
+" --------------------------------------------------------------------------
+" Recommendations for installing this configuration from scratch:
+"   0) Open a new file: ~/.vimrc
+"   1) Start with built-in sets and maps
+"   2) Install vim-plug package manager
+"   3) Install plugins and add plugin-related maps (noted with "PLUGIN:")
+"   4) Configure colorscheme
+
 let mapleader = " "
 
 " --------------- Plugins ---------------
@@ -57,6 +77,7 @@ set belloff=all
 
 " --------------- Colorscheme ---------------
 
+" ---- Recommended color support code from onedark.vim README ----
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
@@ -78,7 +99,7 @@ let g:sonokai_style = 'andromeda'
 colorscheme sonokai
 " colorscheme onedark
 
-" --------------- Maps ---------------
+" --------------- Maps - Built-in ---------------
 
 " vimrc
 nnoremap <leader>vrc :tabe ~/.vimrc<CR>
@@ -119,6 +140,8 @@ nnoremap <leader>rws :%s/\s\+$//e<CR>
 :command Wq wq
 :command W w
 :command Q q
+
+" --------------- Maps - Plugins ---------------
 
 " PLUGIN: fzf.vim keybindings
 nnoremap <leader>ff :GFiles<CR>
