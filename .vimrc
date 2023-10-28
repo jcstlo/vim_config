@@ -16,27 +16,42 @@ call plug#end()
 
 " --------------- Sets ---------------
 
+" line numbers
 set number
 set relativenumber
+
+" default to word wrap off
 set nowrap
 set nowrapscan
+
+" no highlights when searching
 set nohlsearch
+
+" freedom to fly through buffers
 set hidden
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab
-set autoindent
-set smartindent
-set incsearch
-set scrolloff=8
-set laststatus=2
-set noshowmode
-set wildmenu
-set backspace=indent,eol,start
+
+" indent-related
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab   " spaces > tabs
+set autoindent  " indent next line based on current line
+set smartindent " indent next line based on language
+
+set incsearch " show pattern match as I'm searching
+set scrolloff=8 " keep some lines above/below cursor when scrolling
+set laststatus=2 " always have status line
+set noshowmode " status line plugin already shows which mode I'm in
+set wildmenu " suggestions with <Tab> in command mode
+
+set backspace=indent,eol,start " backspace works on everything in insert mode
+
+" no need for backups or swapfiles
 set nobackup
 set nowb
 set noswapfile
+
+" disable annoying sounds
 set noerrorbells
 set belloff=all
 
