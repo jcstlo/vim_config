@@ -1,55 +1,30 @@
-" ======== WINDOWS GVIM CONFIG BEGIN ========
+let mapleader = " "
 
-" NOTE: .vimrc file should be located at $HOME/_vimrc on windows
-" Use ':echo $HOME' command in gVim to get full path
+" --------------- Plugins ---------------
+" Refer to https://github.com/junegunn/vim-plug for details
 
-filetype off
-set shellslash
-set rtp+=~/vimfiles/bundle/Vundle.vim
-call vundle#begin('~/vimfiles/bundle')
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin()
+Plug 'joshdick/onedark.vim'                         " onedark colorscheme
+Plug 'sainnhe/sonokai'                              " sonokai colorscheme
+Plug 'itchyny/lightline.vim'                        " status line
+Plug 'jiangmiao/auto-pairs'                         " auto-close pairs, like (), {}, [], '', etc
+Plug 'Yggdroot/indentLine'                          " visual indication for indents
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
+Plug 'junegunn/fzf.vim'                             " fuzzy finder
+Plug 'airblade/vim-gitgutter'                       " changed git file indication
+call plug#end()
 
-" All of your Plugins must be added before the following line
-Plugin 'rakr/vim-one'
-Plugin 'morhetz/gruvbox'
-Plugin 'itchyny/lightline.vim'
-Plugin 'preservim/nerdtree'
-Plugin 'jiangmiao/auto-pairs'
+" --------------- Sets ---------------
 
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" ======== Themes ========
-" [GRUVBOX]
-" let g:gruvbox_contrast_dark='hard'
-" autocmd vimenter * ++nested colorscheme gruvbox
-" set background=dark
-
-" [ONE]
-autocmd vimenter * ++nested colorscheme one
-" set background=light
-set background=dark
-
-" ======== Sets ========
 set number
 set relativenumber
 set nowrap
+set nowrapscan
 set nohlsearch
 set hidden
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 set autoindent
 set smartindent
@@ -62,67 +37,77 @@ set backspace=indent,eol,start
 set nobackup
 set nowb
 set noswapfile
-" set colorcolumn=80
-syntax on
+set noerrorbells
+set belloff=all
 
-" Disable annoying bells
-set noerrorbells visualbell t_vb=
-autocmd GUIEnter * set visualbell t_vb=
+" --------------- Colorscheme ---------------
 
-if has ("gui_running")
-    if has("gui_win32")
-        set guifont=Cascadia_Code_SemiLight:h13:W500:cANSI:qDRAFT
-        " set guifont=Fira_Code_Medium:h11:W500:cANSI:qDRAFT
-        " set guifont=JetBrains_Mono:h14:W500:cANSI:qDRAFT
-    endif
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 endif
 
-let mapleader = " "
+syntax on
+let g:sonokai_style = 'andromeda'
+colorscheme sonokai
+" colorscheme onedark
 
-" ======== Maps ========
+" --------------- Maps ---------------
+
 " vimrc
-nnoremap <leader>vrc :tabe $HOME/_vimrc<CR>
+nnoremap <leader>vrc :tabe ~/.vimrc<CR>
 nnoremap <leader>src :w<CR>:so %<CR>
 
-" Plugin-specific
-nnoremap <C-e> :NERDTreeToggle<CR>
+" Directory navigation
+nnoremap <leader>dir :Explore<CR>
 
-" Directory-related
-nnoremap <leader>cdt :cd $HOME/Desktop/<CR>
-nnoremap <leader>ch :cd $HOME<CR>
-
-" Buffer-related
+" Buffers
 nnoremap <leader>bl :buffers<CR>
 nnoremap <leader>bs <C-^>
 
 " Splits
 nnoremap <leader>wl <C-w>v<C-w>l
 nnoremap <leader>wj <C-w>s<C-w>j
+nnoremap <silent> <leader><Right> :vertical resize -5<CR>
+nnoremap <silent> <leader><Left> :vertical resize +5<CR>
+nnoremap <silent> <leader><Up> :resize +5<CR>
+nnoremap <silent> <leader><Down> :resize -5<CR>
 
-noremap <silent> <C-Right> :vertical resize -5<CR>
-noremap <leader>w< :vertical resize -20<CR>
-
-nnoremap <silent> <C-Left> :vertical resize +5<CR>
-nnoremap <leader>w> :vertical resize +20<CR>
-
-nnoremap <silent> <C-Up> :resize +5<CR>
-nnoremap <silent> <C-Down> :resize -5<CR>
-
-" Other
-nnoremap <leader>td o- [ ] 
-nnoremap <leader>cap :e $HOME/capture.txt<CR>
+" Yank entire file to clipboard
 nnoremap <leader>ya ggVG"+y
 
-" Place cursor where font size is in _vimrc
-nmap <leader>fs <leader>vrc0gg/guifont<CR>0f:ll
+" [R]elative-number [E]nable / [D]isable
+nnoremap <leader>rd :set nornu<CR>
+nnoremap <leader>re :set rnu<CR>
 
-" Automatic font size changes
-nmap <leader>8fs <leader>fscw8<Esc><leader>src:q<CR>
-nmap <leader>9fs <leader>fscw9<Esc><leader>src:q<CR>
-nmap <leader>10fs <leader>fscw10<Esc><leader>src:q<CR>
-nmap <leader>11fs <leader>fscw11<Esc><leader>src:q<CR>
-nmap <leader>12fs <leader>fscw12<Esc><leader>src:q<CR>
-nmap <leader>13fs <leader>fscw13<Esc><leader>src:q<CR>
-nmap <leader>14fs <leader>fscw14<Esc><leader>src:q<CR>
+" Word wrap enable/disable
+nnoremap <leader>wr :set wrap<CR>
+nnoremap <leader>WR :set wrap linebreak<CR>
+nnoremap <leader>nowr :set nowrap nolinebreak<CR>
 
-" ======== WINDOWS GVIM CONFIG END ========
+" Remove trailing whitespace in current file
+nnoremap <leader>rws :%s/\s\+$//e<CR>
+
+" for accidental uppercase when saving/exiting Vim
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+
+" PLUGIN: fzf.vim keybindings
+nnoremap <leader>ff :GFiles<CR>
+nnoremap <leader>fg :RG<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fw :RG <C-R><C-W><CR>
+nnoremap <leader>fa :Files<CR>
