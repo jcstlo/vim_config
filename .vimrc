@@ -32,6 +32,7 @@ Plug 'Yggdroot/indentLine'                          " visual indication for inde
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
 Plug 'junegunn/fzf.vim'                             " fuzzy finder
 Plug 'airblade/vim-gitgutter'                       " changed git file indication
+Plug 'tpope/vim-fugitive'                           " git wrapper
 call plug#end()
 
 " --------------- Sets ---------------
@@ -149,3 +150,7 @@ nnoremap <leader>fg :RG<CR>
 nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fw :RG <C-R><C-W><CR>
 nnoremap <leader>fa :Files<CR>
+
+" PLUGIN: vim-fugitive
+nnoremap <leader>gb :Git blame<CR>
+vnoremap <leader>gb :Git blame<CR>
