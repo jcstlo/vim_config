@@ -59,14 +59,6 @@ set expandtab   " spaces > tabs
 set autoindent  " indent next line based on current line
 set smartindent " indent next line based on language
 
-set incsearch " show pattern match as I'm searching
-set scrolloff=8 " keep some lines above/below cursor when scrolling
-set laststatus=2 " always have status line
-set noshowmode " status line plugin already shows which mode I'm in
-set wildmenu " suggestions with <Tab> in command mode
-
-set backspace=indent,eol,start " backspace works on everything in insert mode
-
 " no need for backups or swapfiles
 set nobackup
 set nowb
@@ -75,6 +67,14 @@ set noswapfile
 " disable annoying sounds
 set noerrorbells
 set belloff=all
+
+" misc
+set incsearch                  " show pattern match as I'm searching
+set scrolloff=8                " keep some lines above/below cursor when scrolling
+set laststatus=2               " always have status line
+set noshowmode                 " status line plugin already shows which mode I'm in
+set wildmenu                   " suggestions with <Tab> in command mode
+set backspace=indent,eol,start " backspace works on everything in insert mode
 
 " --------------- Colorscheme ---------------
 
@@ -110,16 +110,16 @@ nnoremap <leader>src :w<CR>:so %<CR>
 nnoremap <leader>dir :Explore<CR>
 
 " Buffers
-nnoremap <leader>bl :buffers<CR>
+nnoremap <leader>bl :buffers<CR>:b<space>
 nnoremap <leader>bs <C-^>
 
 " Splits
 nnoremap <leader>wl <C-w>v<C-w>l
 nnoremap <leader>wj <C-w>s<C-w>j
-nnoremap <silent> <leader><Right> :vertical resize -5<CR>
-nnoremap <silent> <leader><Left> :vertical resize +5<CR>
-nnoremap <silent> <leader><Up> :resize +5<CR>
-nnoremap <silent> <leader><Down> :resize -5<CR>
+nnoremap <silent> <C-l> :vertical resize -5<CR>
+nnoremap <silent> <C-h> :vertical resize +5<CR>
+nnoremap <silent> <C-k> :resize +5<CR>
+nnoremap <silent> <C-j> :resize -5<CR>
 
 " Yank entire file to clipboard
 nnoremap <leader>ya ggVG"+y
@@ -144,7 +144,7 @@ nnoremap <leader>rws :%s/\s\+$//e<CR>
 
 " --------------- Maps - Plugins ---------------
 
-" PLUGIN: fzf.vim keybindings
+" PLUGIN: fzf.vim
 nnoremap <leader>ff :GFiles<CR>
 nnoremap <leader>fg :RG<CR>
 nnoremap <leader>fb :Buffers<CR>
