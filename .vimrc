@@ -33,6 +33,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
 Plug 'junegunn/fzf.vim'                             " fuzzy finder
 Plug 'airblade/vim-gitgutter'                       " changed git file indication
 Plug 'tpope/vim-fugitive'                           " git wrapper
+Plug 'easymotion/vim-easymotion'                    " easier cursor jumps
 call plug#end()
 
 " --------------- Sets ---------------
@@ -121,8 +122,8 @@ nnoremap <silent> <C-h> :vertical resize +5<CR>
 nnoremap <silent> <C-k> :resize +5<CR>
 nnoremap <silent> <C-j> :resize -5<CR>
 
-" Yank entire file to clipboard
-nnoremap <leader>ya ggVG"+y
+" Select entire file
+nnoremap <leader>va ggVG
 
 " [R]elative-number [E]nable / [D]isable
 nnoremap <leader>rd :set nornu<CR>
@@ -154,3 +155,7 @@ nnoremap <leader>fa :Files<CR>
 " PLUGIN: vim-fugitive
 nnoremap <leader>gb :Git blame<CR>
 vnoremap <leader>gb :Git blame<CR>
+
+" PLUGIN: easymotion
+let g:EasyMotion_do_mapping = 0
+nmap <leader>j <Plug>(easymotion-s2)
