@@ -28,7 +28,6 @@ Plug 'joshdick/onedark.vim'                         " onedark colorscheme
 Plug 'sainnhe/sonokai'                              " sonokai colorscheme
 Plug 'itchyny/lightline.vim'                        " status line
 Plug 'jiangmiao/auto-pairs'                         " auto-close pairs, like (), {}, [], '', etc
-Plug 'Yggdroot/indentLine'                          " visual indication for indents
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
 Plug 'junegunn/fzf.vim'                             " fuzzy finder
 Plug 'airblade/vim-gitgutter'                       " changed git file indication
