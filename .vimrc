@@ -76,6 +76,17 @@ set laststatus=2               " always have status line
 set noshowmode                 " status line plugin already shows which mode I'm in
 set wildmenu                   " suggestions with <Tab> in command mode
 set backspace=indent,eol,start " backspace works on everything in insert mode
+set clipboard=unnamedplus
+
+" --------------- WSL Clipboard support -----------------
+
+let s:clip = '/mnt/c/Windows/System32/clip.exe'
+if executable(s:clip)
+    augroup WSLYank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    augroup END
+endif
 
 " --------------- Colorscheme ---------------
 
