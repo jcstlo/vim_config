@@ -106,3 +106,4 @@ vim.api.nvim_create_user_command("Q", "q", {})
 
 require("config.lazy")
 require("config.lualine")
+require("config.telescope")
