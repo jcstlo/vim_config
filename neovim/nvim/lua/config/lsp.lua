@@ -3,7 +3,9 @@ vim.opt.signcolumn = "yes"
 
 -- Mason stuff
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup{
+    ensure_installed = { "eslint", "tsserver", "lua_ls", "pylsp" },
+}
 
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
 local lspconfig = require("lspconfig")
@@ -30,6 +32,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
     vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
     vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
   end,
 })
 
@@ -45,6 +48,7 @@ require'lspconfig'.lua_ls.setup{
         }
     }
 }
+require'lspconfig'.pylsp.setup{}
 
 -- Autocomplete configuration
 local cmp = require("cmp")
@@ -58,5 +62,7 @@ cmp.setup({
             vim.snippet.expand(args.body)
         end,
     },
-    mapping = cmp.mapping.preset.insert({}),
+    mapping = cmp.mapping.preset.insert({
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    }),
 })
