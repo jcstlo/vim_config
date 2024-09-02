@@ -105,7 +105,7 @@ vim.api.nvim_create_user_command("W", "w", {})
 vim.api.nvim_create_user_command("Q", "q", {})
 
 -- create timestamp in [HH:MM AM/PM] format, for plain text logging
-vim.api.nvim_set_keymap("n", "<leader>ts", "i<C-R>=strftime(\"[%I:%M %p]\")<CR><Esc>", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ts", "i<C-R>=strftime(\"[%I:%M %p]\")<CR><Esc>a ", { noremap = false, silent = true })
 
 require("config.lazy")
 require("config.lualine")
