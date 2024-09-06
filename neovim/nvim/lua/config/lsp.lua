@@ -7,13 +7,26 @@ require("mason-lspconfig").setup{
     ensure_installed = { "eslint", "tsserver", "lua_ls", "pylsp" },
 }
 
+-- temporary(?) fix for tsserver deprecation (rename to ts_ls)
+require("mason-lspconfig").setup_handlers({
+    function(server_name)
+        if server_name == "tsserver" then
+            server_name = "ts_ls"
+        end
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        require("lspconfig")[server_name].setup({
+            capabilities = capabilities,
+        })
+    end,
+})
+
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
-local lspconfig = require("lspconfig")
-lspconfig.util.default_config.capabilities = vim.tbl_deep_extend(
-    "force",
-    lspconfig.util.default_config.capabilities,
-    require('cmp_nvim_lsp').default_capabilities()
-)
+-- local lspconfig = require("lspconfig")
+-- lspconfig.util.default_config.capabilities = vim.tbl_deep_extend(
+--     "force",
+--     lspconfig.util.default_config.capabilities,
+--     require('cmp_nvim_lsp').default_capabilities()
+-- )
 
 -- Execute this callback function every time a language server
 -- is attached to a buffer
@@ -38,7 +51,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Set up installed language servers here
 require'lspconfig'.eslint.setup{}
-require'lspconfig'.tsserver.setup{}
+require'lspconfig'.ts_ls.setup{}
 require'lspconfig'.lua_ls.setup{
     settings = {
         Lua = {
