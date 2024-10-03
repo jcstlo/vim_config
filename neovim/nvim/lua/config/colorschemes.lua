@@ -1,1 +1,2 @@
-vim.cmd("colorscheme carbonfox")
+-- vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme tokyonight-night")
