@@ -110,6 +110,7 @@ vim.api.nvim_set_keymap("n", "<leader>ots", "o<CR><Esc>i<C-R>=strftime(\"[%I:%M 
 
 require("config.lazy")
 require("config.lualine")
+require("config.gitsigns")
 require("config.telescope")
 require("config.lsp")
 require("config.colorschemes")
