@@ -5,7 +5,8 @@ local M = {
         lazy = false,
         priority = 1000,
         opts = {},
-    }
+    },
+    "sainnhe/sonokai",
 }
 
 return { M }
