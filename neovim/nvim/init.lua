@@ -86,6 +86,10 @@ vim.api.nvim_set_keymap("n", "<C-j>", ":resize -5<CR>", { noremap = true, silent
 -- yank entire file to clipboard
 vim.api.nvim_set_keymap("n", "<leader>ya", "ggVG\"+y", { noremap = true, silent = true })
 
+-- more ergonomic maps for paste and visual yank
+vim.api.nvim_set_keymap("n", "<leader>p", "\"+p", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("v", "<leader>y", "\"+y", { noremap = false, silent = true })
+
 -- [R]elative-number [E]nable / [D]isable
 vim.api.nvim_set_keymap("n", "<leader>rd", ":set nornu<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>re", ":set rnu<CR>", { noremap = true, silent = true })
