@@ -16,7 +16,7 @@ vim.opt.wrap = false
 vim.opt.wrapscan = false
 
 -- no highlights when searching
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 
 -- freedom to fly through buffers
 vim.opt.hidden = true
@@ -107,6 +107,9 @@ vim.api.nvim_create_user_command("Q", "q", {})
 -- create timestamp in [HH:MM AM/PM] format, for plain text logging
 vim.api.nvim_set_keymap("n", "<leader>ts", "i<C-R>=strftime(\"[%I:%M %p]\")<CR><Esc>a ", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ots", "o<CR><Esc>i<C-R>=strftime(\"[%I:%M %p]\")<CR><Esc>o<CR>", { noremap = false, silent = true })
+
+-- remove search highlight, until next search
+vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = false, silent = true })
 
 require("config.lazy")
 require("config.lualine")
