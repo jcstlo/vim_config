@@ -15,7 +15,7 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.wrapscan = false
 
--- no highlights when searching
+-- enable highlights when searching
 vim.opt.hlsearch = true
 
 -- freedom to fly through buffers
