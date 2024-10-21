@@ -16,7 +16,7 @@ vim.opt.wrap = false
 vim.opt.wrapscan = false
 
 -- enable highlights when searching
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 
 -- freedom to fly through buffers
 vim.opt.hidden = true
