@@ -4,7 +4,7 @@ vim.opt.signcolumn = "yes"
 -- Mason stuff
 require("mason").setup()
 require("mason-lspconfig").setup{
-    ensure_installed = { "eslint", "ts_ls", "lua_ls", "pylsp", "tailwindcss", "prismals" },
+    ensure_installed = { "eslint", "ts_ls", "lua_ls", "pylsp", "tailwindcss", "prismals", "denols" },
 }
 
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
@@ -37,20 +37,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Set up installed language servers here
-require'lspconfig'.eslint.setup{}
-require'lspconfig'.ts_ls.setup{}
-require'lspconfig'.lua_ls.setup{
+local nvim_lsp = require('lspconfig')
+
+nvim_lsp.eslint.setup{}
+
+nvim_lsp.ts_ls.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
+  single_file_support = false
+}
+
+nvim_lsp.denols.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+nvim_lsp.lua_ls.setup{
     settings = {
         Lua = {
             diagnostics = {
-                globals = { "vim" }
+                globals = { "vim", "on_attach" }
             }
         }
     }
 }
-require'lspconfig'.pylsp.setup{}
-require'lspconfig'.tailwindcss.setup{}
-require'lspconfig'.prismals.setup{}
+
+nvim_lsp.pylsp.setup{}
+
+nvim_lsp.tailwindcss.setup{}
+
+nvim_lsp.prismals.setup{}
 
 -- Autocomplete configuration
 local cmp = require("cmp")
