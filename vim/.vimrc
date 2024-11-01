@@ -168,4 +168,4 @@ vnoremap <leader>gb :Git blame<CR>
 
 " PLUGIN: easymotion
 let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s2)
+nmap <leader>j <Plug>(easymotion-s2)
