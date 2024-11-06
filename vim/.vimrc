@@ -147,6 +147,9 @@ nnoremap <leader>nowr :set nowrap nolinebreak<CR>
 " Remove trailing whitespace in current file
 nnoremap <leader>rws :%s/\s\+$//e<CR>
 
+" Search for current visual selection
+vnoremap // y/\V<C-R>=escape(@",'/\')<cr><cr>
+
 " for accidental uppercase when saving/exiting Vim
 :command WQ wq
 :command Wq wq

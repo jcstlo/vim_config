@@ -115,6 +115,9 @@ vim.api.nvim_set_keymap("n", "<leader>ots", "o<CR><Esc>i<C-R>=strftime(\"[%I:%M 
 -- remove search highlight, until next search
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = false, silent = true })
 
+-- search for current visual selection
+vim.api.nvim_set_keymap("v", "//", "y/\\V<C-R>=escape(@\",'/\')<cr><cr>", { noremap = true, silent = true })
+
 -- ------------------- Separate config files -------------------
 
 require("config.lazy")
