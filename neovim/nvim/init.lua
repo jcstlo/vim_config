@@ -115,6 +115,8 @@ vim.api.nvim_set_keymap("n", "<leader>ots", "o<CR><Esc>i<C-R>=strftime(\"[%I:%M 
 -- remove search highlight, until next search
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = false, silent = true })
 
+-- ------------------- Separate config files -------------------
+
 require("config.lazy")
 require("config.lualine")
 require("config.gitsigns")
