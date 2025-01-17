@@ -4,7 +4,7 @@ vim.opt.signcolumn = "yes"
 -- Mason stuff
 require("mason").setup()
 require("mason-lspconfig").setup{
-    ensure_installed = { "eslint", "ts_ls", "lua_ls", "pylsp", "tailwindcss", "prismals", "denols" },
+    ensure_installed = { "eslint", "ts_ls", "lua_ls", "pylsp", "tailwindcss" },
 }
 
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
@@ -47,11 +47,6 @@ nvim_lsp.ts_ls.setup {
   single_file_support = false
 }
 
-nvim_lsp.denols.setup {
-  on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-}
-
 nvim_lsp.lua_ls.setup{
     settings = {
         Lua = {
@@ -65,8 +60,6 @@ nvim_lsp.lua_ls.setup{
 nvim_lsp.pylsp.setup{}
 
 nvim_lsp.tailwindcss.setup{}
-
-nvim_lsp.prismals.setup{}
 
 -- Autocomplete configuration
 local cmp = require("cmp")
