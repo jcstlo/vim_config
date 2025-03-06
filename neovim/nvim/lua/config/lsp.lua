@@ -4,7 +4,7 @@ vim.opt.signcolumn = "yes"
 -- Mason stuff
 require("mason").setup()
 require("mason-lspconfig").setup{
-    ensure_installed = { "eslint", "ts_ls", "lua_ls", "pylsp", "tailwindcss" },
+    ensure_installed = { "eslint", "ts_ls", "lua_ls", "pylsp", "tailwindcss", "clangd", "gopls" },
 }
 
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
@@ -60,6 +60,10 @@ nvim_lsp.lua_ls.setup{
 nvim_lsp.pylsp.setup{}
 
 nvim_lsp.tailwindcss.setup{}
+
+nvim_lsp.clangd.setup{}
+
+nvim_lsp.gopls.setup{}
 
 -- Autocomplete configuration
 local cmp = require("cmp")
