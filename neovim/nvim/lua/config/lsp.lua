@@ -47,6 +47,7 @@ nvim_lsp.ts_ls.setup {
   single_file_support = false
 }
 
+-- Disables vim warnings in main init.lua
 nvim_lsp.lua_ls.setup{
     settings = {
         Lua = {
@@ -56,6 +57,17 @@ nvim_lsp.lua_ls.setup{
         }
     }
 }
+
+-- Not sure why this disables vim warnings in this specific file, but not my main init.lua
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim", "on_attach", "require" }
+            }
+        }
+    }
+})
 
 nvim_lsp.pylsp.setup{}
 
@@ -86,7 +98,7 @@ cmp.setup({
 function Toggle_diagnostics()
     if vim.g.diagnostics_active then
         vim.g.diagnostics_active = false
-        vim.diagnostic.disable()
+        vim.diagnostic.enable(false)
     else
         vim.g.diagnostics_active = true
         vim.diagnostic.enable()
