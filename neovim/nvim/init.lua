@@ -7,8 +7,6 @@ vim.g.maplocalleader = "\\" -- for lazy.nvim
 
 -- ------------------- Sets -------------------
 
-vim.cmd.colorscheme("unokai")
-
 -- line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -100,8 +98,6 @@ vim.api.nvim_set_keymap("v", "//", "y/\\V<C-R>=escape(@\",'/\')<cr><cr>", { nore
 
 -- ------------------- Plugins -------------------
 
--- TODO: lsp
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -129,6 +125,9 @@ require("lazy").setup({
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "nvim-telescope/telescope.nvim", version = "*" },
+    { "mason-org/mason.nvim", opts = {} },
+    "neovim/nvim-lspconfig",
+    { "mason-org/mason-lspconfig.nvim", opts = {}, },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
@@ -136,6 +135,8 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = false },
 })
+
+vim.cmd.colorscheme("retrobox")
 
 require('lualine').setup()
 
@@ -148,3 +149,23 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- lsp
+require('mason').setup()
+require("mason-lspconfig").setup()
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition", })
+    vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show diagnostics", })
+
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, args.buf, {
+        autotrigger = true,
+      })
+      vim.keymap.set("i", "<C-Space>", function() vim.lsp.completion.get() end)
+    end
+  end,
+})
