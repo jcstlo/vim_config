@@ -7,8 +7,6 @@ vim.g.maplocalleader = "\\" -- for lazy.nvim
 
 -- ------------------- Sets -------------------
 
-vim.cmd.colorscheme("unokai")
-
 -- line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -43,6 +41,24 @@ vim.opt.laststatus = 2   -- always have status line
 vim.opt.showmode = false -- status line plugin shows which mode I'm in
 vim.opt.wildmenu = true  -- suggestions with <Tab> in command mode
 
+-- ------------------- WSL clipboard support -------------------
+
+vim.cmd([[
+    set clipboard+=unnamedplus
+    let g:clipboard = {
+                \   'name': 'WslClipboard',
+                \   'copy': {
+                \      '+': 'clip.exe',
+                \      '*': 'clip.exe',
+                \    },
+                \   'paste': {
+                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
+]])
+
 -- ------------------- Maps (built-in) -------------------
 
 -- template:
@@ -62,10 +78,10 @@ vim.api.nvim_set_keymap("n", "<leader>bs", "<C-^>", { noremap = true, silent = f
 -- splits
 vim.api.nvim_set_keymap("n", "<leader>wl", "<C-w>v<C-w>l", { noremap = true, silent = false })
 vim.api.nvim_set_keymap("n", "<leader>wj", "<C-w>s<C-w>j", { noremap = true, silent = false })
-vim.api.nvim_set_keymap("n", "<C-l>", ":vertical resize -2<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-h>", ":vertical resize +2<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-k>", ":resize +2<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-j>", ":resize -2<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-l>", ":vertical resize -5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-h>", ":vertical resize +5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-k>", ":resize +5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-j>", ":resize -5<CR>", { noremap = true, silent = true })
 
 -- yank entire file to clipboard
 vim.api.nvim_set_keymap("n", "<leader>ya", "ggVG\"+y", { noremap = true, silent = true })
@@ -80,8 +96,8 @@ vim.api.nvim_set_keymap("n", "<leader>re", ":set rnu<CR>", { noremap = true, sil
 
 -- Word wrap enable/disable
 vim.api.nvim_set_keymap("n", "<leader>wr", ":set wrap<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>WR", ":set wrap linebreak breakindent<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>nowr", ":set nowrap nolinebreak breakindent<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>WR", ":set wrap linebreak<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>nowr", ":set nowrap nolinebreak<CR>", { noremap = true, silent = true })
 
 -- Remove trailing whitespace in current file
 vim.api.nvim_set_keymap("n", "<leader>rws", ":%s/\\s\\+$//e<CR>", { noremap = true, silent = true })
@@ -92,59 +108,22 @@ vim.api.nvim_create_user_command("Wq", "wq", {})
 vim.api.nvim_create_user_command("W", "w", {})
 vim.api.nvim_create_user_command("Q", "q", {})
 
+-- create timestamp in [HH:MM AM/PM] format, for plain text logging
+vim.api.nvim_set_keymap("n", "<leader>ts", "i<C-R>=strftime(\"[%I:%M %p]\")<CR><Esc>a ", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ots", "o<CR><Esc>i<C-R>=strftime(\"[%I:%M %p]\")<CR><Esc>o<CR>", { noremap = false, silent = true })
+
 -- remove search highlight, until next search
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = false, silent = true })
 
 -- search for current visual selection
 vim.api.nvim_set_keymap("v", "//", "y/\\V<C-R>=escape(@\",'/\')<cr><cr>", { noremap = true, silent = true })
 
--- ------------------- Plugins -------------------
+-- ------------------- Separate config files -------------------
 
--- TODO: lsp
-
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    -- add your plugins here
-    "nvim-lualine/lualine.nvim",
-    "nvim-tree/nvim-web-devicons",
-    "lewis6991/gitsigns.nvim",
-    "nvim-lua/plenary.nvim",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    { "nvim-telescope/telescope.nvim", version = "*" },
-  },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "retrobox" } },
-  -- automatically check for plugin updates
-  checker = { enabled = false },
-})
-
-require('lualine').setup()
-
-require('gitsigns').setup()
-
--- telescope
-require('telescope').setup()
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+require("config.lazy")
+require("config.lualine")
+require("config.gitsigns")
+require("config.telescope")
+require("config.lsp")
+require("config.colorschemes")
+require("config.leap")
