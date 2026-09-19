@@ -43,46 +43,43 @@ vim.opt.wildmenu = true  -- suggestions with <Tab> in command mode
 
 -- ------------------- Maps (built-in) -------------------
 
--- template:
--- vim.api.nvim_set_keymap(MODE, SHORTCUT, COMMAND, { noremap = true/false, silent = true/false })
-
 -- vimrc
-vim.api.nvim_set_keymap("n", "<leader>vrc", ":tabe $MYVIMRC<CR>", { noremap = true, silent = false })
-vim.api.nvim_set_keymap("n", "<leader>src", ":w<CR>:so %<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>vrc", ":tabe $MYVIMRC<CR>", { silent = false })
+vim.keymap.set("n", "<leader>src", ":w<CR>:so %<CR>", { silent = false })
 
 -- directory navigation
-vim.api.nvim_set_keymap("n", "<leader>dir", ":Explore<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>dir", ":Explore<CR>", { silent = false })
 
 -- buffers
-vim.api.nvim_set_keymap("n", "<leader>bl", ":buffers<CR>:b<space>", { noremap = true, silent = false })
-vim.api.nvim_set_keymap("n", "<leader>bs", "<C-^>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>bl", ":buffers<CR>:b<space>", { silent = false })
+vim.keymap.set("n", "<leader>bs", "<C-^>", { silent = false })
 
 -- splits
-vim.api.nvim_set_keymap("n", "<leader>wl", "<C-w>v<C-w>l", { noremap = true, silent = false })
-vim.api.nvim_set_keymap("n", "<leader>wj", "<C-w>s<C-w>j", { noremap = true, silent = false })
-vim.api.nvim_set_keymap("n", "<C-l>", ":vertical resize -2<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-h>", ":vertical resize +2<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-k>", ":resize +2<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-j>", ":resize -2<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>wl", "<C-w>v<C-w>l", { silent = false })
+vim.keymap.set("n", "<leader>wj", "<C-w>s<C-w>j", { silent = false })
+vim.keymap.set("n", "<C-l>", ":vertical resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-h>", ":vertical resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", ":resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-j>", ":resize -2<CR>", { silent = true })
 
 -- yank entire file to clipboard
-vim.api.nvim_set_keymap("n", "<leader>ya", "ggVG\"+y", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ya", "ggVG\"+y", { silent = true })
 
 -- more ergonomic maps for paste and visual yank
-vim.api.nvim_set_keymap("n", "<leader>p", "\"+p", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("v", "<leader>y", "\"+y", { noremap = false, silent = true })
+vim.keymap.set("n", "<leader>p", "\"+p", { silent = true })
+vim.keymap.set("v", "<leader>y", "\"+y", { silent = true })
 
 -- [R]elative-number [E]nable / [D]isable
-vim.api.nvim_set_keymap("n", "<leader>rd", ":set nornu<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>re", ":set rnu<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>rd", ":set nornu<CR>", { silent = true })
+vim.keymap.set("n", "<leader>re", ":set rnu<CR>", { silent = true })
 
 -- Word wrap enable/disable
-vim.api.nvim_set_keymap("n", "<leader>wr", ":set wrap<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>WR", ":set wrap linebreak breakindent<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>nowr", ":set nowrap nolinebreak breakindent<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>wr", ":set wrap<CR>", { silent = false })
+vim.keymap.set("n", "<leader>WR", ":set wrap linebreak breakindent<CR>", { silent = false })
+vim.keymap.set("n", "<leader>nowr", ":set nowrap nolinebreak breakindent<CR>", { silent = false })
 
 -- Remove trailing whitespace in current file
-vim.api.nvim_set_keymap("n", "<leader>rws", ":%s/\\s\\+$//e<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>rws", ":%s/\\s\\+$//e<CR>", { silent = true })
 
 -- for accidental uppercase when saving/exiting Vim
 vim.api.nvim_create_user_command("WQ", "wq", {})
@@ -91,10 +88,10 @@ vim.api.nvim_create_user_command("W", "w", {})
 vim.api.nvim_create_user_command("Q", "q", {})
 
 -- remove search highlight, until next search
-vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = false, silent = true })
+vim.keymap.set("n", "<leader>h", ":noh<CR>", { silent = true })
 
 -- search for current visual selection
-vim.api.nvim_set_keymap("v", "//", "y/\\V<C-R>=escape(@\",'/\')<cr><cr>", { noremap = true, silent = true })
+vim.keymap.set("v", "//", "y/\\V<C-R>=escape(@\",'/\')<cr><cr>", { silent = true })
 
 -- ------------------- Plugins -------------------
 
