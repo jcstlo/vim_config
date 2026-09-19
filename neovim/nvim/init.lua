@@ -152,7 +152,12 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 
 -- lsp
 require('mason').setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup {
+    ensure_installed = {
+        "rust_analyzer",
+        "lua_ls",
+    },
+}
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
@@ -163,9 +168,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     if client:supports_method("textDocument/completion") then
       vim.lsp.completion.enable(true, client.id, args.buf, {
-        autotrigger = true,
+        autotrigger = false,
       })
       vim.keymap.set("i", "<C-Space>", function() vim.lsp.completion.get() end)
     end
   end,
+})
+
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      diagnostics = {
+        -- this disables the annoying undefined global warning in my init.lua
+        globals = { "vim" },
+      },
+    },
+  },
 })
