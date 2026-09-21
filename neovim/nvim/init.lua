@@ -220,6 +220,7 @@ require("cmp").setup({
   })
 })
 
-require("cmp").setup.filetype("markdown", {
-  enabled = false;
-})
+-- disable nvim-cmp for some filetypes
+for _, ft in ipairs({ "markdown", "text", "" }) do
+  cmp.setup.filetype(ft, { enabled = false })
+end
