@@ -42,7 +42,6 @@ vim.opt.showmode = false -- status line plugin shows which mode I'm in
 vim.opt.wildmenu = true  -- suggestions with <Tab> in command mode
 
 -- ------------------- Maps (built-in) -------------------
-
 -- vimrc
 vim.keymap.set("n", "<leader>vrc", ":tabe $MYVIMRC<CR>", { silent = false })
 vim.keymap.set("n", "<leader>src", ":w<CR>:so %<CR>", { silent = false })
@@ -125,11 +124,18 @@ require("lazy").setup({
     { "mason-org/mason.nvim", opts = {} },
     "neovim/nvim-lspconfig",
     { "mason-org/mason-lspconfig.nvim", opts = {}, },
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-vsnip",
+    "hrsh7th/vim-vsnip",
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "retrobox" } },
-  -- automatically check for plugin updates
+  -- disable automatically check for plugin updates
   checker = { enabled = false },
 })
 
@@ -150,27 +156,22 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 -- lsp
 require('mason').setup()
 require("mason-lspconfig").setup {
-    ensure_installed = {
-        "rust_analyzer",
-        "lua_ls",
-    },
+  ensure_installed = {
+    "rust_analyzer",
+    "lua_ls",
+  },
 }
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
+  callback = function()
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition", })
     vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Show diagnostics", })
-
-    if client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, args.buf, {
-        autotrigger = false,
-      })
-      vim.keymap.set("i", "<C-Space>", function() vim.lsp.completion.get() end)
-    end
   end,
 })
+
+-- allow completion on language servers.
+-- NOTE: need to add "capabilities = capabilities" in every language server config I use
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 vim.lsp.config('lua_ls', {
   settings = {
@@ -181,4 +182,44 @@ vim.lsp.config('lua_ls', {
       },
     },
   },
+  capabilities = capabilities
+})
+
+vim.lsp.config('rust_analyzer', {
+  capabilities = capabilities
+})
+
+-- completion
+local cmp = require'cmp'
+
+require("cmp").setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+
+    -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+require("cmp").setup.filetype("markdown", {
+  enabled = false;
 })
