@@ -190,8 +190,11 @@ vim.lsp.config('rust_analyzer', {
 })
 
 -- completion
-if (false) then -- use a bool to easily toggle between enabling/disabling completion
+if (true) then -- use a bool to easily toggle between enabling/disabling completion
   local cmp = require'cmp'
+
+  -- limit completion items
+  vim.opt.pumheight = 8
 
   require("cmp").setup({
     snippet = {
