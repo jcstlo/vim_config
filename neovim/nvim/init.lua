@@ -131,15 +131,16 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-vsnip",
     "hrsh7th/vim-vsnip",
+    "EdenEast/nightfox.nvim",
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "retrobox" } },
+  install = { colorscheme = { "carbonfox" } },
   -- disable automatically check for plugin updates
   checker = { enabled = false },
 })
 
-vim.cmd.colorscheme("retrobox")
+vim.cmd.colorscheme("carbonfox")
 
 require('lualine').setup()
 
@@ -190,7 +191,7 @@ vim.lsp.config('rust_analyzer', {
 })
 
 -- completion
-if (true) then -- use a bool to easily toggle between enabling/disabling completion
+if (false) then -- use a bool to easily toggle between enabling/disabling completion
   local cmp = require'cmp'
 
   -- limit completion items
